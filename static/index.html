@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Sydsvenskan login validation</title>
+    </head>
+    <body>
+        <main>
+            <section>
+                <h1>Sydsvenskan login validation</h1>
+                <input id="username" type="text" placeholder="username" />
+                <input id="password" type="password" placeholder="password" />
+                <button id="validate">Validate</button>
+                <span id="response"></span>
+            </section>
+        </main>
+        
+        <script>
+            "use strict;"
+
+            document.getElementById("validate").onclick = () => {
+                let data = { username: document.getElementById("username").value,
+                             password: document.getElementById("password").value };
+
+                fetch("/validate", {
+                    method: "POST",
+                    body: JSON.stringify(data)
+                })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((json) => {
+                    document.getElementById("response").innerHTML = JSON.stringify(json);
+
+                    if (json.status === "ok") {
+                        document.getElementById("response").className = "green";
+                    } else {
+                        document.getElementById("response").className = "red";
+                    }
+                });
+            }
+        </script>
+
+        <style>
+            :root {
+                background-color: whitesmoke;
+            }
+
+            main {
+                width: 60rem;
+                margin: auto;
+            }
+
+            section {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 5rem;
+            }
+
+            h1, #response {
+                width: 100%;
+                text-align: center;
+                margin-top: 1rem;
+            }
+
+            input, button {
+                margin-right: 1rem;
+            }
+
+            .red {
+                color: orangered;
+            }
+
+            .green {
+                color: green;
+            }
+        </style>
+    </body>
+</html>

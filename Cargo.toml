@@ -1,0 +1,15 @@
+[package]
+name = "sydsvenskan"
+version = "0.1.0"
+authors = ["Daniel Hedrén <danielhedren@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+reqwest = "*"
+rocket = "*"
+serde = { version = "*", features = ["derive"] }
+
+[dependencies.rocket_contrib]
+version = "*"
+default-features = false
+features = ["json", "serve"]
